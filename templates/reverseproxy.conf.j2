@@ -59,6 +59,7 @@ server {
    location {{ static.location }} {
       alias {{ static.path }};
       try_files $uri @default;
+   }
 {% endfor %}
 
    access_log /var/log/nginx/{{ item.key }}_access.log;

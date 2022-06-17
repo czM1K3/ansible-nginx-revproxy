@@ -115,6 +115,7 @@ server {
    location {{ static.location }} {
       alias {{ static.path }};
       try_files $uri @default;
+   }
 {% endfor %}
 }
 {% endif %}
