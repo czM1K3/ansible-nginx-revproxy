@@ -27,7 +27,7 @@ server {
    listen    [::]:{{ item.value.listen | default(80) }};
    server_name    {{ item.value.domains | join(' ') }};
 
-   location / {
+   location @default {
       gzip off;
       client_max_body_size {{ item.value.client_max_body_size | default('50M') }};
       proxy_read_timeout {{ item.value.proxy_read_timeout | default('300') }};
@@ -47,9 +47,19 @@ server {
 {% endif %}
    }
 
+   location / {
+      try_files $uri @default;
+   }
+
    location /.well-known {
       alias /var/www/{{ item.key }}/.well-known;
    }
+
+{% for static in item.value.static %}
+   location {{ static.location }} {
+      alias {{ static.path }};
+      try_files $uri @default;
+{% endfor %}
 
    access_log /var/log/nginx/{{ item.key }}_access.log;
    error_log /var/log/nginx/{{ item.key }}_error.log error;
