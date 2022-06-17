@@ -13,7 +13,7 @@ name: Release
 
 defaults:
   run:
-    working-directory: 'hispanico.nginx-revproxy'
+    working-directory: 'czm1k3.nginx-revproxy'
 
 jobs:
   release:
@@ -23,7 +23,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: 'hispanico.nginx-revproxy'
+          path: 'czm1k3.nginx-revproxy'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
