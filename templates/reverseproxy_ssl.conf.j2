@@ -111,11 +111,13 @@ server {
       try_files $uri @default;
    }
 
+{% if item.value.static is defined %}
 {% for static in item.value.static %}
    location {{ static.location }} {
       alias {{ static.path }};
       try_files $uri @default;
    }
 {% endfor %}
+{% endif %}
 }
 {% endif %}
